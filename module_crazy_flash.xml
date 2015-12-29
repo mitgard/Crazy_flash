@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_crazy_flash" default="compile.module.crazy_flash">
+  <dirname property="module.crazy_flash.basedir" file="${ant.file.module_crazy_flash}"/>
+  
+  <property name="module.jdk.home.crazy_flash" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.crazy_flash" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.crazy_flash" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.crazy_flash" value="-encoding windows-1251 -source 1.7 ${compiler.args}"/>
+  
+  <property name="crazy_flash.output.dir" value="${module.crazy_flash.basedir}/build/classes/production/Crazy_flash"/>
+  <property name="crazy_flash.testoutput.dir" value="${module.crazy_flash.basedir}/build/classes/test/Crazy_flash"/>
+  
+  <path id="crazy_flash.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="crazy_flash.module.production.classpath">
+    <path refid="${module.jdk.classpath.crazy_flash}"/>
+  </path>
+  
+  <path id="crazy_flash.runtime.production.module.classpath">
+    <pathelement location="${crazy_flash.output.dir}"/>
+  </path>
+  
+  <path id="crazy_flash.module.classpath">
+    <path refid="${module.jdk.classpath.crazy_flash}"/>
+    <pathelement location="${crazy_flash.output.dir}"/>
+  </path>
+  
+  <path id="crazy_flash.runtime.module.classpath">
+    <pathelement location="${crazy_flash.testoutput.dir}"/>
+    <pathelement location="${crazy_flash.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.crazy_flash">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.crazy_flash">
+    <patternset refid="excluded.from.module.crazy_flash"/>
+  </patternset>
+  
+  
+  <target name="compile.module.crazy_flash" depends="compile.module.crazy_flash.production,compile.module.crazy_flash.tests" description="Compile module Crazy_flash"/>
+  
+  <target name="compile.module.crazy_flash.production" depends="register.custom.compilers" description="Compile module Crazy_flash; production classes"/>
+  
+  <target name="compile.module.crazy_flash.tests" depends="register.custom.compilers,compile.module.crazy_flash.production" description="compile module Crazy_flash; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.crazy_flash" description="cleanup module">
+    <delete dir="${crazy_flash.output.dir}"/>
+    <delete dir="${crazy_flash.testoutput.dir}"/>
+  </target>
+</project>
